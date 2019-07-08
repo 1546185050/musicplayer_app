@@ -1,16 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:musicplayer_app/sleepaid/GridButtonView.dart';
 
 class SleepNaturePage extends StatefulWidget{
 
   SleepNaturePage({Key key}) : super(key : key);
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return null;
-  }
+  State<StatefulWidget> createState() => new _SleepNaturePage();
 }
 
 class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderStateMixin{
@@ -48,7 +44,7 @@ class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderS
         children: <Widget>[
           //todo:此处放gif动图
           Image.asset(
-            '文件位置',
+            "assets/banner_1.jpg",
             width: 600.0,
             height: 240.0,
             fit: BoxFit.cover,
