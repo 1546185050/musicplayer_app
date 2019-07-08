@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   final List<Tab> _bottomTabs = <Tab>[
     new Tab(text: 'XMusic',icon: new Icon(Icons.audiotrack),),
     new Tab(text: '助眠',icon: new Icon(Icons.airline_seat_individual_suite)),
-    new Tab(text: '晚安FM',icon: new Icon(Icons.brightness_4)),
+    new Tab(text: '晚安FM',icon: new Icon(Icons.radio)),
   ];
 
   //底部导航Tab控制器
