@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+var title = "自然";
+
 class SleepNaturePage extends StatefulWidget{
 
   SleepNaturePage({Key key}) : super(key : key);
@@ -45,24 +47,65 @@ class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderS
           //todo:此处放gif动图
           Image.asset(
             "assets/banner_1.jpg",
-            width: 600.0,
-            height: 240.0,
+            width: MediaQuery.of(context).size.width,
+            height: 160.0,
             fit: BoxFit.cover,
           ),
-         GridView.custom(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 20.0,
-          ),
-          childrenDelegate: SliverChildBuilderDelegate((context,position){
-            return getItemContainer(datas[position]);
-          }, childCount: datas.length
-          )
-         ),
+          _NatureMusiclist(),
         ],
       ),
     );
   }
 
+}
+
+class _NatureMusiclist extends StatelessWidget {
+  List<Container> getItemContainer(BuildContext context, int count) {
+    return new List.generate(
+        count,
+            (int index) => new Container(
+          child: Column(
+            children: <Widget>[
+              Material(
+                  shape: new RoundedRectangleBorder(
+                    side: const BorderSide(
+                        width: 2.0,
+                        color: Colors.black12
+                    ),
+                    borderRadius: new BorderRadius.circular(50.0),
+                  ),
+                  elevation: 5,
+                  child: new ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Theme.of(context).primaryColor,
+                      child: Icon(
+                        Icons.queue_music,
+                        color: Theme.of(context).primaryIconTheme.color,
+                      ),
+                    ),
+                  )
+              ),
+              Padding(padding: EdgeInsets.only(top: 5)),
+              Text("自然风" + index.toString()),
+            ],
+          ),
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 4,
+      padding: const EdgeInsets.all(2.0),
+      //主轴间隔
+      mainAxisSpacing: 3.0,
+      //横轴间隔
+      crossAxisSpacing: 3.0,
+      children: getItemContainer(context, 9),
+    );
+  }
 }
