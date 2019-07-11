@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './FirstTabPage.dart';
 
-import './SecondTabPage.dart';
+import 'package:musicplayer_app/sleepaid/SleepAidTabPage.dart';
 
 import './ThirdTabPage.dart';
 
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
             children:  [
               new FirstTabPage(),
-              new SecondTabPage(),
+              new SleepAidTabPage(),
               new ThirdTabPage()
             ]
         ),
