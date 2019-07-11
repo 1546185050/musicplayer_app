@@ -1,17 +1,17 @@
 
 import 'package:flutter/material.dart';
 
-var title = "自然";
+var title = "场景";
 
-class SleepNaturePage extends StatefulWidget{
+class SleepScenePage extends StatefulWidget{
 
-  SleepNaturePage({Key key}) : super(key : key);
+  SleepScenePage({Key key}) : super(key : key);
 
   @override
-  State<StatefulWidget> createState() => new _SleepNaturePage();
+  State<StatefulWidget> createState() => new _SleepScenePage();
 }
 
-class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderStateMixin{
+class _SleepScenePage extends State<SleepScenePage> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,12 @@ class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderS
         children: <Widget>[
           //todo:此处放gif动图
           Image.asset(
-            "assets/banner_1.jpg",
+            "assets/banner_2.jpg",
             width: MediaQuery.of(context).size.width,
             height: 160.0,
             fit: BoxFit.cover,
           ),
-          _NatureMusiclist(),
+          _SceneMusiclist(),
         ],
       ),
     );
@@ -33,7 +33,7 @@ class _SleepNaturePage extends State<SleepNaturePage> with SingleTickerProviderS
 
 }
 
-class _NatureMusiclist extends StatelessWidget {
+class _SceneMusiclist extends StatelessWidget {
   List<Container> getItemContainer(BuildContext context, int count) {
     return new List.generate(
         count,
@@ -63,7 +63,7 @@ class _NatureMusiclist extends StatelessWidget {
                   )
               ),
               Padding(padding: EdgeInsets.only(top: 5)),
-              Text("自然" + index.toString()),
+              Text("场景" + index.toString()),
             ],
           ),
         ));

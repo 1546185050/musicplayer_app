@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'SleepNaturePage.dart';
+import 'SleepScenePage.dart';
 
 class SleepAidTabBarView extends StatelessWidget{
 
@@ -14,7 +15,7 @@ class SleepAidTabBarView extends StatelessWidget{
 
     var viewList = [
       SleepNaturePage(),
-      Page2(),
+      SleepScenePage(),
       Page3(),
       Page4(),
     ];
