@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:musicplayer_app/netRequest/httpRequestActions.dart';
+import 'package:musicplayer_app/models/personalizedModel.dart';
+import 'package:musicplayer_app/page/leaderboardPage.dart';
 
 class FirstTabPage extends StatefulWidget {
   @override
@@ -18,7 +22,7 @@ class SwiperPageState extends State<FirstTabPage> {
           _BannerSwiperView(),
           _NavigationItems(),
           _HorizontalHeader("推荐歌单", () {}),
-          _RecommendPlaylist(),
+          __RecommendMusicPlaylist(),
         ],
       ),
     );
@@ -139,7 +143,11 @@ class _NavigationItems extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _NavigationItem(Icons.person, "歌手", () {}),
-          _NavigationItem(Icons.show_chart, "排行榜", () {}),
+          _NavigationItem(Icons.show_chart, "排行榜", () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return LeaderboardPage();
+            }));
+          }),
           _NavigationItem(Icons.category, "分类", () {}),
           _NavigationItem(Icons.mic, "K歌", () {}),
         ],
@@ -148,35 +156,69 @@ class _NavigationItems extends StatelessWidget {
   }
 }
 
-class _RecommendPlaylist extends StatelessWidget {
-  List<Container> getItemContainer(BuildContext context, int count) {
+class __RecommendMusicPlaylist extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return __RecommendMusicPlaylistState();
+  }
+}
+
+class __RecommendMusicPlaylistState extends State<__RecommendMusicPlaylist> {
+  Future future;
+  List<PersonalizedResult> data = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    future =
+        HttpRequestActions.getRecommendListData((Map<String, dynamic> result) {
+      PersonalizedModel p = PersonalizedModel.fromJson(result);
+
+      setState(() {
+        data.addAll(p.result);
+      });
+    });
+  }
+
+  List<Container> getItemContainer(
+      BuildContext context, List<PersonalizedResult> playlist) {
     return new List.generate(
-        count,
+        playlist.length,
         (int index) => new Container(
               child: Column(
                 children: <Widget>[
                   Material(
                       shape: new RoundedRectangleBorder(
-                        side: const BorderSide(
-                            width: 2.0, color: Colors.black12),
-                        borderRadius: new BorderRadius.circular(20.0),
+                        side:
+                            const BorderSide(width: 1.0, color: Colors.black12),
+                        borderRadius: new BorderRadius.circular(10.0),
                       ),
                       elevation: 5,
                       child: new ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                         child: Container(
                           width: 80,
                           height: 80,
-                          color: Theme.of(context).primaryColor,
-                          child: Icon(
-                            Icons.queue_music,
-                            color: Theme.of(context).primaryIconTheme.color,
-                          ),
+                          color: Colors.black12,
+                          child: CachedNetworkImage(
+                              placeholder: (context, url) =>
+                                  new CircularProgressIndicator(
+                                    valueColor:
+                                        AlwaysStoppedAnimation(Colors.black12),
+                                  ),
+                              imageUrl: playlist[index].picUrl),
                         ),
-                      )
-                  ),
+                      )),
                   Padding(padding: EdgeInsets.only(top: 5)),
-                  Text("推荐歌单" + index.toString()),
+                  Text(
+                    playlist[index].name,
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    maxLines: 2,
+                  ),
                 ],
               ),
             ));
@@ -184,15 +226,29 @@ class _RecommendPlaylist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      padding: const EdgeInsets.all(4.0),
-      //主轴间隔
-      mainAxisSpacing: 5.0,
-      //横轴间隔
-      crossAxisSpacing: 5.0,
-      children: getItemContainer(context, 9),
+    // TODO: implement build
+    return new FutureBuilder(
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.active:
+          case ConnectionState.waiting:
+            return Center(child: Text("加载中"));
+          case ConnectionState.done:
+            return GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              padding: const EdgeInsets.all(4.0),
+              //主轴间隔
+              mainAxisSpacing: 5.0,
+              //横轴间隔
+              crossAxisSpacing: 5.0,
+              children: getItemContainer(context, this.data),
+            );
+        }
+        return null;
+      },
+      future: future,
     );
   }
 }

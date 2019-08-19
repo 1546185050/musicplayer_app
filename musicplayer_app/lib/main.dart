@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './FirstTabPage.dart';
+import 'package:musicplayer_app/page/FirstTabPage.dart';
 
 import 'package:musicplayer_app/sleepaid/SleepAidTabPage.dart';
 
-import './ThirdTabPage.dart';
+import 'package:musicplayer_app/page/ThirdTabPage.dart';
 
 void main() => runApp(MyApp());
 
