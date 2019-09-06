@@ -8,4 +8,6 @@ class Api {
 
   static const String TOPLISTDETAIL_URL = '/top/list';
 
+  static const String LIGHT_MUSIC = '/top/playlist?tag=轻音乐';
+
 }

@@ -38,4 +38,12 @@ class HttpRequestActions {
         CancelToken cancelToken}) async {
     return HttpRequestActions.getRequest(Api.TOPLISTDETAIL_URL, callback, queryParameters: queryParameters);
   }
+
+  //歌单分类
+  static Future getCatListData(callback(Map<String, dynamic> result),
+      {Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken}) async {
+    return HttpRequestActions.getRequest(Api.LIGHT_MUSIC, callback);
+  }
 }
