@@ -1,6 +1,6 @@
 class Api {
 
-  static const String BASE_URL = 'http://45.63.0.144:3000';
+  static const String BASE_URL = 'http://127.0.0.1:3000';
 
   static const String PERSONALIZED_URL = '/personalized';
 
