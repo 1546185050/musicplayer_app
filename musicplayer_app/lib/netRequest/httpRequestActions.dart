@@ -23,6 +23,14 @@ class HttpRequestActions {
     return HttpRequestActions.getRequest(Api.PERSONALIZED_URL, callback);
   }
 
+  //banner轮播图
+  static Future getIphoneBannertData(callback(Map<String, dynamic> result),
+      {Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken}) async {
+    return HttpRequestActions.getRequest(Api.IPHONE_BANNER, callback);
+  }
+
   //排行榜
   static Future getLeaderboardListData(callback(Map<String, dynamic> result),
       {Map<String, dynamic> queryParameters,
@@ -45,5 +53,21 @@ class HttpRequestActions {
         Options options,
         CancelToken cancelToken}) async {
     return HttpRequestActions.getRequest(Api.LIGHT_MUSIC, callback);
+  }
+
+  //获取音乐url
+  static Future getMusicUrlData(callback(Map<String, dynamic> result),
+      {Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken}) async {
+    return HttpRequestActions.getRequest(Api.MUSICPLAYING_URL, callback, queryParameters: queryParameters);
+  }
+
+  //获取MVurl
+  static Future getMVUrlData(callback(Map<String, dynamic> result),
+      {Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken}) async {
+    return HttpRequestActions.getRequest(Api.MVPLAYING_URL, callback, queryParameters: queryParameters);
   }
 }

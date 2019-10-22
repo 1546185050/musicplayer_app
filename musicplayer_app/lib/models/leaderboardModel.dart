@@ -13,7 +13,8 @@ class LeaderboardModel {
       json['list'].forEach((v) { list.add(new BoardListitem.fromJson(v)); });
     }
     artistToplist = json['artistToplist'] != null ? new ArtistToplist.fromJson(json['artistToplist']) : null;
-    rewardToplist = json['rewardToplist'] != null ? new RewardToplist.fromJson(json['rewardToplist']) : null;
+//    rewardToplist = json['rewardToplist'] != null ? new RewardToplist.fromJson(json['rewardToplist']) : null;
+    var a = 1;
   }
 
   Map<String, dynamic> toJson() {

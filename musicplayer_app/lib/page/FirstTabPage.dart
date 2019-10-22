@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:musicplayer_app/models/bannerModel.dart';
 import 'package:musicplayer_app/netRequest/httpRequestActions.dart';
 import 'package:musicplayer_app/models/personalizedModel.dart';
 import 'package:musicplayer_app/page/leaderboardPage.dart';
@@ -36,29 +37,51 @@ class _BannerSwiperView extends StatefulWidget {
 
 class _SwiperViewState extends State<_BannerSwiperView> {
   List<Widget> imageList = [
-    Image.asset("assets/banner_1.jpg"),
-    Image.asset("assets/banner_2.jpg"),
-    Image.asset("assets/banner_3.jpg"),
-    Image.asset("assets/banner_4.jpg"),
+    Image.asset("assets/banner_1.jpg")
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    HttpRequestActions.getIphoneBannertData((Map<String, dynamic> result) {
+      BannersModel b = BannersModel.fromJson(result);
+      imageList = b.banners.map((item){
+        return CachedNetworkImage(
+          imageUrl: item.pic,
+          height: 200,
+          fit: BoxFit.fill
+        );
+      }).toList();
+
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 200.0,
-        child: Swiper(
-          itemBuilder: _swiperBuilder,
-          itemCount: imageList.length,
-          pagination: new SwiperPagination(
-              builder: DotSwiperPaginationBuilder(
-            color: Colors.black54,
-            activeColor: Colors.white,
+      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: 180.0,
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Swiper(
+            itemBuilder: _swiperBuilder,
+            itemCount: imageList.isEmpty ? 0 : imageList.length,
+            pagination: new SwiperPagination(
+                builder: DotSwiperPaginationBuilder(
+                  color: Colors.lightBlue,
+                  activeColor: Colors.white,
+                )),
+            control: new SwiperControl(),
+            scrollDirection: Axis.horizontal,
+            autoplay: true,
           )),
-          control: new SwiperControl(),
-          scrollDirection: Axis.horizontal,
-          autoplay: true,
-        ));
+    );
   }
 
   Widget _swiperBuilder(BuildContext context, int index) {
@@ -142,13 +165,13 @@ class _NavigationItems extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _NavigationItem(Icons.person, "歌手", () {}),
-          _NavigationItem(Icons.show_chart, "排行榜", () {
+          _NavigationItem(Icons.group, "歌手", () {}),
+          _NavigationItem(Icons.equalizer, "排行榜", () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return LeaderboardPage();
             }));
           }),
-          _NavigationItem(Icons.category, "分类", () {}),
+          _NavigationItem(Icons.featured_play_list, "分类", () {}),
           _NavigationItem(Icons.mic, "K歌", () {}),
         ],
       ),
@@ -194,16 +217,17 @@ class __RecommendMusicPlaylistState extends State<__RecommendMusicPlaylist> {
                       shape: new RoundedRectangleBorder(
                         side:
                             const BorderSide(width: 1.0, color: Colors.black12),
-                        borderRadius: new BorderRadius.circular(10.0),
+                        borderRadius: new BorderRadius.circular(5.0),
                       ),
                       elevation: 5,
                       child: new ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(5),
                         child: Container(
-                          width: 80,
-                          height: 80,
+                          width: (MediaQuery.of(context).size.width - 40)/3,
+                          height: 90,
                           color: Colors.black12,
                           child: CachedNetworkImage(
+                              fit: BoxFit.fill,
                               placeholder: (context, url) =>
                                   new CircularProgressIndicator(
                                     valueColor:
@@ -218,6 +242,9 @@ class __RecommendMusicPlaylistState extends State<__RecommendMusicPlaylist> {
                     textAlign: TextAlign.center,
                     softWrap: true,
                     maxLines: 2,
+                    style: new TextStyle(
+                      fontSize: 12
+                    ),
                   ),
                 ],
               ),
@@ -238,11 +265,12 @@ class __RecommendMusicPlaylistState extends State<__RecommendMusicPlaylist> {
             return GridView.count(
               shrinkWrap: true,
               crossAxisCount: 3,
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(5.0),
               //主轴间隔
               mainAxisSpacing: 5.0,
               //横轴间隔
               crossAxisSpacing: 5.0,
+              childAspectRatio: 8/9,
               children: getItemContainer(context, this.data),
             );
         }

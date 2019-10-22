@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:musicplayer_app/models/leaderboardDetailModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:musicplayer_app/page/musicplayer_page.dart';
+
+import 'musicplayer_page.dart';
+import 'mvplayer_page.dart';
 
 class MusicList extends StatelessWidget {
   static MusicList of(BuildContext context) {
@@ -67,15 +71,10 @@ class MusicList extends StatelessWidget {
 
   static final void Function(BuildContext context, DeatilTracks muisc) defaultOnTap =
       (context, music) {
-    final list = MusicList.of(context);
-//    if (quiet.value.token == list.token &&
-//        quiet.value.isPlaying &&
-//        quiet.value.current == music) {
-//      //open playing page
-//      Navigator.pushNamed(context, ROUTE_PAYING);
-//    } else {
-//      quiet.playWithList(music, list.musics, list.token);
-//    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MusicPlayerPage();
+    },
+        settings: RouteSettings(arguments: music)));
   };
 
   final String token;
@@ -129,7 +128,9 @@ class MusicTile extends StatelessWidget {
       height: 56,
       child: InkWell(
         onTap: () {
-          if (list.onMusicTap != null) list.onMusicTap(context, music);
+          if (list.onMusicTap != null) {
+            list.onMusicTap(context, music);
+          }
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -254,7 +255,9 @@ class IconMV extends StatelessWidget {
         icon: Icon(Icons.videocam),
         tooltip: 'MV',
         onPressed: () {
-
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MVPlayerPage();
+          }, settings: RouteSettings(arguments: music)));
         });
   }
 }

@@ -20,6 +20,12 @@
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/build" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/audioplayers/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/path_provider/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/path_provider/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/musicplayer_app/ios/.symlinks/plugins/path_provider/build" />
